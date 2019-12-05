@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-12">
+    <div class="row pt-5 pb-5">
+      <div class="btn-group" role="group" aria-label="Third group">
+        <button type="button" class="btn btn-lg btn-danger text-light" [disabled]="!isEditMode" (click)="delete(collage)"
+          placement="top" ngbTooltip="Delete">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </button>
+
+        <div class="btn-group" role="group">
+          <button id="btnGroupDrop1" type="button" class="btn btn-light btn-lg" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="#">Dropdown link</a>
+            <a class="dropdown-item" href="#">Dropdown link</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <!-- <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-lg btn-light">
+            <i class="fa fa-angle-double-left"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg  btn-light">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light">
+            <i class="fa fa-angle-double-right"></i> </button>
+        </div> -->
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+          <button type="button" class="btn btn-lg btn-light" routerLink="/collage" placement="top" ngbTooltip="Show All">
+            <i class="fa fa-list-alt" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light" placement="top" ngbTooltip="Print" (click)="print()">
+            <i class="fa fa-print" aria-hidden="true"></i>
+          </button>
+
+        </div>
+
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+          <button [disabled]="!collageForm.form.valid" type="button" class="btn btn-lg  btn-success text-light"
+            (click)="save(collage)" placement="top" ngbTooltip="Save">
+            <i class="fa fa-save" aria-hidden="true"></i>
+          </button>
+          <!-- <button type="button" class="btn btn-lg btn-warning text-dark">
+            <i class="fas fa-file-export"></i>
+          </button> -->
+          <button type="button" class="btn btn-lg btn-info text-light" placement="top" ngbTooltip="Add New"
+            routerLink="/collage/add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <h3 class="text-danger d-inline">{{ 'collage' | translate }} &nbsp;&nbsp;</h3>
+  <h3 class="text-primary d-inline ">{{collage.code}} </h3>
+  <h3 class="text-warning d-inline ">{{collage.name}}</h3>
+
+</div>
+<hr>
+<form novalidate #collageForm="ngForm">
+  <div class="form-group row">
+    <div class="col-sm-6">
+      <input required placeholder="{{'code'|translate}}" id="code" type="text" class="form-control"
+        [(ngModel)]="collage.code" name="code" [ngbTypeahead]="code" />
+    </div>
+      <div class="col-sm-6">
+      <input required placeholder="{{'name'|translate}}" id="name" type="text" class="form-control"
+        [(ngModel)]="collage.name" name="name"  />
+    </div>
+  
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-4">
+      <input placeholder="{{'phoneNumber'|translate}}" id="phoneNumber" type="text" class="form-control"
+        [(ngModel)]="collage.phoneNumber" name="phoneNumber" />
+    </div>
+    <div class="col-sm-4">
+      <input placeholder="{{'email'|translate}}" id="Email" type="email" class="form-control"
+        [(ngModel)]="collage.Email" name="Email" />
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+                <div class="invalid-feedback">
+                  Please choose a Valid Email.
+                </div>
+    </div>
+    <div class="col-sm-4">
+      <input placeholder="{{'website'|translate}}" id="website" type="url" class="form-control"
+        [(ngModel)]="collage.website" name="website" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <input placeholder="{{'location'|translate}}" id="location" type="text" class="form-control"
+        [(ngModel)]="collage.location" name="location" />
+    </div>
+    <br /> <br />
+
+  </div>
+  
+</form>
+
+<ng-template #modalSuccess let-modal>
+  <div class="modal-header bg-success text-light">
+    <h4 class="modal-title" id="modal-basic-title">{{'sucess' | translate}}</h4>
+    <button type="button" class="close text-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-primary text-center">
+    <h3> {{'saved' | translate}}</h3>
+    <h4>{{collage.name}}</h4>
+    <h4 *ngIf="isEditMode">is Updated</h4>
+    <h4 *ngIf="!isEditMode">is Added</h4>
+  </div>
+
+</ng-template>
+
+<ng-template #modalFaild let-modal>
+  <div class="modal-header bg-danger text-light">
+    <h4 class="modal-title" id="modal-basic-title">{{'faild' | translate}}</h4>
+    <button type="button" class="close text-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-primary">
+    {{'faild' | translate}}
+    {{response.error}}
+  </div>
+
+</ng-template>

@@ -1,0 +1,163 @@
+<div class="row">
+  <div class="col-12">
+    <div class="row pt-5 pb-5">
+      <div class="btn-group" role="group" aria-label="Third group">
+        <button type="button" class="btn btn-lg btn-danger text-light" [disabled]="!isEditMode"
+          (click)="delete(student)" placement="top" ngbTooltip="Delete">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </button>
+
+        <div class="btn-group" role="group">
+          <button id="btnGroupDrop1" type="button" class="btn btn-light btn-lg" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="#">Dropdown link</a>
+            <a class="dropdown-item" href="#">Dropdown link</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <!-- <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-lg btn-light">
+            <i class="fa fa-angle-double-left"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg  btn-light">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light">
+            <i class="fa fa-angle-double-right"></i> </button>
+        </div> -->
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+          <button type="button" class="btn btn-lg btn-light" accesskey="w" routerLink="/student" placement="top"
+            ngbTooltip="Show All">
+            <i class="fa fa-list-alt" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light" placement="top" ngbTooltip="Print" accesskey="p"
+            (click)="print()">
+            <i class="fa fa-print" aria-hidden="true"></i>
+          </button>
+
+        </div>
+
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+          <button [disabled]="!studentForm.form.valid" type="button" accesskey="s"
+            class="btn btn-lg  btn-success text-light" (click)="save(student)" placement="top" ngbTooltip="Save">
+            <i class="fa fa-save" aria-hidden="true"></i>
+          </button>
+          <!-- <button type="button" class="btn btn-lg btn-warning text-dark">
+            <i class="fas fa-file-export"></i>
+          </button> -->
+          <button type="button" class="btn btn-lg btn-info text-light" placement="top" ngbTooltip="Add New"
+            routerLink="/student/add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <h3 class="text-danger d-inline">{{ 'student' | translate }} &nbsp;&nbsp;</h3>
+  <h3 class="text-primary d-inline ">{{student.code}} </h3>
+  <h3 class="text-warning d-inline ">{{student.name}}</h3>
+
+</div>
+<hr>
+<form novalidate #studentForm="ngForm">
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <label class="text-danger">{{'collage'|translate}}</label>
+
+      <select class="form-control" id="collage" [(ngModel)]="student.collage.id" name="collage">
+        <option selected value="" disabled>Select collage</option>
+        <option *ngFor="let item of collages" value="{{item.id}}">
+          {{item.name}}</option>
+      </select>
+    </div>
+ 
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-4">
+      <input required placeholder="{{'code'|translate}}" id="code" type="text" class="form-control"
+        [(ngModel)]="student.code" name="code" [ngbTypeahead]="code" />
+    </div>
+    <div class="col-sm-4">
+      <input required placeholder="{{'name'|translate}}" id="name" type="text" class="form-control"
+        [(ngModel)]="student.name" name="name" />
+    </div>   
+     <div class="col-sm-4">
+      <input required placeholder="{{'phoneNumber'|translate}}" id="phoneNumber" type="text" class="form-control"
+        [(ngModel)]="student.phoneNumber" name="phoneNumber" />
+    </div>
+  </div>
+    <div class="form-group row text-center">
+      <div class="col-sm-6">
+        <div class="form-group files color">
+          <label class="text-primary">{{'image'|translate}}</label>
+          <input autocomplete="false" #file type="file" accept='image/*' (change)="preview($event)" />
+        </div>
+      </div>
+      <div class="col-sm-6">
+
+        <label lass="text-primary">{{'image'|translate}}</label>
+        <img src="{{student.image}}" height="220" *ngIf="student.image">
+      </div>
+
+    </div>
+  <div class="form-group row">
+    <div class="col-sm-3">
+      <input required placeholder="{{'ssn'|translate}}" id="ssn" length="15" type="text" class="form-control"
+        [(ngModel)]="student.ssn" name="ssn"  />
+    </div>
+    <div class="col-sm-3">
+      <input placeholder="{{'macAddress'|translate}}" id="macAddress" type="text" class="form-control"
+        [(ngModel)]="student.macAddress" name="macAddress" />
+    </div>
+    <div class="col-sm-3">
+      <input required placeholder="{{'email'|translate}}" id="email" type="email" class="form-control"
+        [(ngModel)]="student.email" name="email" />
+    </div>
+      <div class="col-sm-3">
+        <input required placeholder="{{'level'|translate}}" id="level" type="number" min="0" max="4" class="form-control"
+          [(ngModel)]="student.level" name="level" />
+      </div>
+  </div>
+</form>
+
+<ng-template #modalSuccess let-modal>
+  <div class="modal-header bg-success text-light">
+    <h4 class="modal-title" id="modal-basic-title">{{'sucess' | translate}}</h4>
+    <button type="button" class="close text-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-primary text-center">
+    <h3> {{'saved' | translate}}</h3>
+    <h4>{{student.name}}</h4>
+    <h4 *ngIf="isEditMode">is Updated</h4>
+    <h4 *ngIf="!isEditMode">is Added</h4>
+  </div>
+
+</ng-template>
+
+<ng-template #modalFaild let-modal>
+  <div class="modal-header bg-danger text-light">
+    <h4 class="modal-title" id="modal-basic-title">{{'faild' | translate}}</h4>
+    <button type="button" class="close text-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-primary">
+    {{'faild' | translate}}
+    {{response.error}}
+  </div>
+
+</ng-template>

@@ -1,0 +1,13 @@
+{
+  "basar": "BasarSoft",
+    "email": "Email",
+    "password": "Password",
+    "login":"Login",
+       "language": "Lang",
+       "logout": "Logout",
+       "arabic":"Arabic",
+       "English": "English",
+         "code": "Code",
+         "nameAr": "Arabic Name",
+         "nameEn": "English Name"
+}

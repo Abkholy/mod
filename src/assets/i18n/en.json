@@ -1,0 +1,14 @@
+{
+  "modern": "Modern Academy",
+    "email": "Email",
+    "LoginPage": "Login Page",
+    "password": "Password",
+    "login":"Login",
+       "language": "Lang",
+       "logout": "Logout",
+       "arabic":"Arabic",
+       "English": "English",
+         "code": "Code",
+         "nameAr": "Arabic Name",
+         "nameEn": "English Name"
+}

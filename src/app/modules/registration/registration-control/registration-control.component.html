@@ -1,0 +1,166 @@
+<div class="row">
+  <div class="col-12">
+    <div class="row pt-5 pb-5">
+      <div class="btn-group" role="group" aria-label="Third group">
+        <button type="button" class="btn btn-lg btn-danger text-light" [disabled]="!isEditMode"
+          (click)="delete(registration)" placement="top" ngbTooltip="Delete">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </button>
+
+        <div class="btn-group" role="group">
+          <button id="btnGroupDrop1" type="button" class="btn btn-light btn-lg" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="#">Dropdown link</a>
+            <a class="dropdown-item" href="#">Dropdown link</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <!-- <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-lg btn-light">
+            <i class="fa fa-angle-double-left"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg  btn-light">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light">
+            <i class="fa fa-angle-double-right"></i> </button>
+        </div> -->
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+          <button type="button" class="btn btn-lg btn-light" accesskey="w" routerLink="/registration" placement="top"
+            ngbTooltip="Show All">
+            <i class="fa fa-list-alt" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light" placement="top" ngbTooltip="Print" accesskey="p"
+            (click)="print()">
+            <i class="fa fa-print" aria-hidden="true"></i>
+          </button>
+
+        </div>
+
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+          <button [disabled]="!registrationForm.form.valid" type="button" accesskey="s"
+            class="btn btn-lg  btn-success text-light" (click)="save(registration)" placement="top" ngbTooltip="Save">
+            <i class="fa fa-save" aria-hidden="true"></i>
+          </button>
+          <!-- <button type="button" class="btn btn-lg btn-warning text-dark">
+            <i class="fas fa-file-export"></i>
+          </button> -->
+          <button type="button" class="btn btn-lg btn-info text-light" placement="top" ngbTooltip="Add New"
+            routerLink="/registration/add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <h3 class="text-danger d-inline">{{ 'registration' | translate }} &nbsp;&nbsp;</h3>
+  <h3 class="text-primary d-inline ">{{registration.code}} </h3>
+
+</div>
+<hr>
+<form novalidate #registrationForm="ngForm">
+  <div class="form-group row">
+    <div class="col-sm-3">
+      <label class="text-danger">{{'student'|translate}}</label>
+      <select class="form-control" id="student" [(ngModel)]="registration.student.id" name="student">
+        <option selected value="" disabled>Select student</option>
+        <option *ngFor="let item of students" value="{{item.id}}">
+          {{item.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      <label class="text-danger">{{'semester'|translate}}</label>
+      <select class="form-control" id="semester" [(ngModel)]="registration.semester.id" name="semester">
+        <option selected value="" disabled>Select semester</option>
+        <option *ngFor="let item of semesters" value="{{item.id}}">
+          {{item.code}}</option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      <label class="text-danger">{{'code'|translate}}</label>
+
+      <input required placeholder="{{'code'|translate}}" id="code" type="text" class="form-control"
+        [(ngModel)]="registration.code" name="code" [ngbTypeahead]="code" />
+    </div>
+    <div class="col-sm-3">
+      <label class="text-danger">{{'level'|translate}}</label>
+
+      <input required placeholder="{{'level'|translate}}" id="level" type="number" min="0" max="4" class="form-control"
+        [(ngModel)]="registration.level" name="level" />
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <label class="text-danger">{{'details'|translate}}</label>
+
+      <input required placeholder="{{'details'|translate}}" id="details" type="text" class="form-control"
+        [(ngModel)]="registration.details" name="details" />
+    </div>
+  </div>
+
+
+  <br>
+  <hr>
+ <h5 class="text-primary text-center">Registed Credit Hours</h5>
+ <h5 class="text-danger text-center">{{registedCA}}</h5>
+  <ag-grid-angular #agGrid 
+  id="myGrid" style="width: 100%; height: 500px;" class="ag-theme-material"
+    [columnDefs]="columnDefs"
+     [rowData]="rowData"
+      [defaultColDef]="defaultColDef" 
+
+    (gridReady)="onGridReady($event)" 
+    rowSelection="multiple"
+    (cellEditingStopped)="cellEditingStopped($event)"
+     [animateRows]="true" 
+      (cellKeyDown)="onCellKeyDown($event)"
+    [pagination]="true" 
+   
+    [enableCellChangeFlash]="true" [paginationAutoPageSize]="true"
+    >
+  </ag-grid-angular>
+
+</form>
+
+<ng-template #modalSuccess let-modal>
+  <div class="modal-header bg-success text-light">
+    <h4 class="modal-title" id="modal-basic-title">{{'sucess' | translate}}</h4>
+    <button type="button" class="close text-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-primary text-center">
+    <h3> {{'saved' | translate}}</h3>
+    <h4>{{registration.name}}</h4>
+    <h4 *ngIf="isEditMode">is Updated</h4>
+    <h4 *ngIf="!isEditMode">is Added</h4>
+  </div>
+
+</ng-template>
+
+<ng-template #modalFaild let-modal>
+  <div class="modal-header bg-danger text-light">
+    <h4 class="modal-title" id="modal-basic-title">{{'faild' | translate}}</h4>
+    <button type="button" class="close text-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-primary">
+    {{'faild' | translate}}
+    {{response.error}}
+  </div>
+
+</ng-template>

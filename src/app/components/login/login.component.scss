@@ -1,0 +1,101 @@
+$breakpoint-tablet: 768px;
+$breakpoint-mobile: 320px;
+$breakpoint-desktop: 920px;
+$secondary: rgb(185, 185, 185);
+$primary: rgb(255, 208, 0);
+$dark: rgba(180, 0, 0, 1);
+
+body {
+   font-family: 'El Messiri',sans-serif;
+}
+
+
+.main-head {
+    height: 150px;
+    background: $primary;
+
+}
+
+.sidenav {
+    height: 100%;
+    background-color: $dark;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+.main {
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .login-form {
+        margin-top: 10%;
+    }
+
+    .register-form {
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .main {
+        margin-left: 40%;
+    }
+
+    .sidenav {
+        width: 40%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .login-form {
+        margin-top: 80%;
+    }
+
+    .register-form {
+        margin-top: 20%;
+    }
+}
+
+
+.login-main-text {
+    margin-top: 20%;
+    padding: 60px;
+    color: #fff;
+}
+
+.login-main-text h2 {
+    font-weight: 500;
+}
+
+.btn-black {
+    background-color: $primary !important;
+    color: #000;
+}
+
+.label{
+    color: #BE1D6F;
+}
+
+
+.logo{
+    @media (min-width: $breakpoint-mobile) {
+          margin-top: -15%;
+    }
+     @media (min-width: $breakpoint-tablet) {
+         margin-top: -25%;
+     }
+     @media (min-width: $breakpoint-desktop) {
+         margin-top: -50%;
+
+     }
+}

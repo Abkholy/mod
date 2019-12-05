@@ -1,0 +1,60 @@
+<div class="sidenav">
+  <div class="login-main-text">
+    <h2>{{ 'modern' | translate }}<br>{{'LoginPage' | translate}}</h2>
+    <p>Login or register from here to access.</p>
+  </div>
+</div>
+<div class="main">
+  <div class="col-md-6 col-sm-12">
+    <div class="login-form">
+        <img width="320px" class="logo" src="../../../assets/images/modrnlogo.png" alt="">
+
+      <form >
+        <div class="form-group">
+          <label class="label">{{'userId' | translate}}</label>
+          <input type="text" class="form-control" id="email" required [(ngModel)]="authentication.email" name="email"
+            placeholder="{{'userId' | translate}}">
+        </div>
+        <div class="form-group">
+          <label class="label">{{'password' | translate}}</label>
+          <input type="password"  class="form-control" id="password" required
+            [(ngModel)]="authentication.password"
+            name="password"
+            placeholder="{{'password' | translate}}">
+        </div>
+        <button type="submit" (click)="login(authentication)" class="btn btn-black">{{'login' | translate}}</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ng-template #modalSuccess let-modal>
+  <div class="modal-header bg-success text-light">
+    <h4 class="modal-title" id="modal-basic-title">{{'sucess' | translate}}</h4>
+    <button type="button" class="close text-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-primary text-center">
+    <h6> Login Success</h6>
+  </div>
+
+</ng-template>
+
+<ng-template #modalFaild let-modal>
+  <div class="modal-header bg-danger text-light">
+    <h4 class="modal-title" id="modal-basic-title">{{'faild' | translate}}</h4>
+    <button type="button" class="close text-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-primary">
+    <!-- <h6>{{responseBody.errorMessage}}</h6> -->
+  <h6 class="text-center text-danger">
+      User Name Or Password Is Incorrect
+      please Try Again
+  </h6>   
+  </div>

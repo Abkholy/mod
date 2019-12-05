@@ -1,0 +1,70 @@
+<div class="row no-print">
+  <div class="col-12">
+    <div class="row pt-5 pb-5">
+      <div class="btn-group" role="group" aria-label="Third group">
+        <button type="button" class="btn btn-lg btn-danger text-light" (click)="delete(selectedRows)">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </button>
+
+        <div class="btn-group" role="group">
+          <button id="btnGroupDrop1" type="button" class="btn btn-light btn-lg" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="#">Dropdown link</a>
+            <a class="dropdown-item" href="#">Dropdown link</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-lg btn-light ag-paging-button" ref="btFirst" (click)="onBtFirst()">
+            <i class="fa fa-angle-double-left"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light ag-paging-button" ref="btPrevious" (click)="onBtPrevious()">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg  btn-light ag-paging-button" ref="btNext" (click)="onBtNext()">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light ag-paging-button" ref="btLast" (click)="onBtLast()">
+            <i class="fa fa-angle-double-right"></i> </button>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+          <button type="button" [disabled]="!studentId" class="btn btn-lg btn-light"
+            [routerLink]="['edit', studentId]">
+            <i class="fa fa-list-alt" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-light" (click)="print()">
+            <i class="fa fa-print" aria-hidden="true"></i>
+          </button>
+
+        </div>
+
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+          <!-- <button type="button" class="btn btn-lg  btn-success text-light" disabled (click)="save(student)">
+            <i class="fa fa-save" aria-hidden="true"></i>
+          </button> -->
+          <button type="button" class="btn btn-lg btn-warning text-dark">
+            <i class="fas fa-file-import"></i>
+          </button>
+          <button type="button" class="btn btn-lg btn-info text-light" routerLink="/student/add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<ag-grid-angular #agGrid id="myGrid" style="width: 100%; height: 500px;" class="ag-theme-material"
+  [columnDefs]="columnDefs" [rowData]="rowData" [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)" rowSelection="multiple"
+  (cellEditingStopped)="cellEditingStopped($event)" [animateRows]="true" 
+  [pagination]="true"  
+  (selectionChanged)="onSelectionChanged($event)" [enableCellChangeFlash]="true" [paginationAutoPageSize]="true"
+  (rowSelected)="rowSelected($event)">
+</ag-grid-angular>
+
+<!-- <img id="imgElem"  height="100"> -->
